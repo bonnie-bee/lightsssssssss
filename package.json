@@ -1,0 +1,25 @@
+{
+  "name": "lightsssssssss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "light.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonnie-bee/lightsssssssss.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonnie-bee/lightsssssssss/issues"
+  },
+  "homepage": "https://github.com/bonnie-bee/lightsssssssss#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "johnny-five": "^1.0.0",
+    "socket.io": "^2.1.1"
+  }
+}
