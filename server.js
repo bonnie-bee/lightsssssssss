@@ -1,7 +1,7 @@
 'use strict';
 
 const five = require('johnny-five');
-const board = new five.Board({port: "COM5"});
+const board = new five.Board();
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
