@@ -1,7 +1,7 @@
 'use strict';
 
 const five = require('johnny-five');
-const board = new five.Board();
+const board = new five.Board({port: "COM5"});
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -26,8 +26,8 @@ board.on('ready', function() {
   led = new five.Led.RGB({
     pins: {
       red: 6,
-      green: 3,
-      blue: 5
+      green: 5,
+      blue: 3
     }
   });
 
