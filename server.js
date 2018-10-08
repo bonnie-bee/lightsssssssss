@@ -1,7 +1,7 @@
 'use strict';
 
 const five = require('johnny-five');
-const board = new five.Board({ port: "COM4"});
+const board = new five.Board({ port: "COM5" });
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -10,11 +10,11 @@ const io = require('socket.io')(server);
 let led = null;
 
 app.use(express.static(__dirname + '/public'))
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.sendFile(__dirname + '/index.html')
 });
 
-board.on('ready', function() {
+board.on('ready', function () {
   console.log('Arduino is ready.');
 
   // Initial state
@@ -32,7 +32,7 @@ board.on('ready', function() {
   });
 
   // Helper function to set the colors
-  let setStateColor = function(state) {
+  let setStateColor = function (state) {
     led.color({
       red: state.red,
       blue: state.blue,
@@ -40,15 +40,15 @@ board.on('ready', function() {
     });
   };
 
-  io.on('connection', function(client) {
-    client.on('join', function(handshake) {
+  io.on('connection', function (client) {
+    client.on('join', function (handshake) {
       console.log(handshake);
     });
 
     // Set initial state
     setStateColor(state);
 
-    client.on('rgb', function(data) {
+    client.on('rgb', function (data) {
       state.red = data.color === 'red' ? data.value : state.red;
       state.green = data.color === 'green' ? data.value : state.green;
       state.blue = data.color === 'blue' ? data.value : state.blue;
@@ -60,8 +60,26 @@ board.on('ready', function() {
       client.broadcast.emit('rgb', data);
     });
 
+
+
     // Turn on the RGB LED
-    led.on();
+
+    client.on('offBtn', function (data) {
+      console.log(data);
+      led.off();
+    })
+
+    client.on('onBtn', function (data) {
+      console.log(data);
+      led.on();
+    })
+
+    client.on('blinkBtn', function (data) {
+      console.log(data);
+      led.blink(1000);
+    })
+
+
   });
 });
 
